@@ -3,14 +3,18 @@ const app = express();
 app.use(express.json());
 import BodyParser from "body-parser";
 import morgan from "morgan";
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
 import { createClient } from "@supabase/supabase-js";
 
+//link supabase
 const supabaseUrl = "https://ufgsxiqbsbtyuikcbddp.supabase.co";
 const supabaseKey =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVmZ3N4aXFic2J0eXVpa2NiZGRwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDg0MzQ1OTIsImV4cCI6MjAyNDAxMDU5Mn0.nd__ay1ZAkbmgmHSUMYVz-sEJ3xcPi9nNv053j0JCJQ";
 const supabase = createClient(supabaseUrl, supabaseKey);
+
+//utilisation de morgan et bodyParser pour les logs et les requêtes
+app.use(morgan('combined'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
   res.status(403).send("Not allowed!");
